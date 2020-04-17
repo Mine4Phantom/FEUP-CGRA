@@ -26,12 +26,14 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.objects = [new MyCylinder(this, 6),
-                        new MySphere(this, 16, 8)
+                        new MySphere(this, 16, 8),
+                        new MyVehicle(this, 4, 1),
                     ];
 
         this.objecstList = {
                             'Cylinder': 0,
-                            'Sphere': 1
+                            'Sphere': 1,
+                            'Vehicle' : 2,
                         };
 
         //Objects connected to MyInterface
