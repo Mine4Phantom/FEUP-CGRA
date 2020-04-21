@@ -25,25 +25,48 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.quad = new MyQuad(this);
+        this.cube = new Mycanyonmap(this);
         this.vehicle = new MyVehicle(this, 4, 1);
         this.objects = [new MyCylinder(this, 6),
-                        new MySphere(this, 16, 8),
+                        new MySphere(this, 16, 8)                
                     ];
 
         this.objecstList = {
-                            '-':10, 
+                            '-':10,
                             'Cylinder': 0,
-                            'Sphere': 1,
+                            'Sphere': 1
                         };
+
+        //------ Applied Material
+        this.quadMaterial = new CGFappearance(this);
+        this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.quadMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.quadMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.quadMaterial.setShininess(10.0);
+        this.quadMaterial.loadTexture('images/default.png');
+        this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        //------
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayCube = true;
         this.displayVehicle = true;
         this.selectedObject = 10;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-    }
+        this.selectedTexture = -1;
+        this.wrapS = 0;
+        this.wrapT = 0;
 
+        this.textures = [this.texture1, this.texture2, this.texture3];
+        this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
+        this.wrappingMethods = ['REPEAT', 'CLAMP_TO_EDGE', 'MIRRORED_REPEAT'];
+
+        this.textureIds = { 'Board': 0, 'Floor': 1, 'Window': 2 };
+        this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
+        this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
+    }
     checkKeys() {
         var text = "Keys pressed: ";
         let keysPressed = false;
@@ -93,9 +116,22 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
+    }
+    //Function that resets selected texture in quadMaterial
+    updateAppliedTexture() {
+        this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
+    }
+
+    //Function that updates wrapping mode in quadMaterial
+    updateTextureWrapping() {
+        this.quadMaterial.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
+    }
+
+    //Function that updates texture coordinates in MyQuad
+    updateTexCoords() {
+        this.quad.updateTexCoords(this.texCoords);
     }
 
     display() {
@@ -116,14 +152,22 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
-        // ---- BEGIN Primitive drawing sections
+        // ---- BEGIN Primitive drawing section
+
+        
+
         if (this.displayVehicle) {
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             this.vehicle.display();
         }
-
+        
+        if(this.displayCube){
+            this.quadMaterial.apply();
+            this.cube.display();
+        }
+ 
         this.objects[this.selectedObject].display();
-
+        
         // ---- END Primitive drawing section
     }
 }
