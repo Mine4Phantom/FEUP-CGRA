@@ -25,21 +25,59 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
+        this.vehicle = new MyVehicle(this, 4, 1);
         this.objects = [new MyCylinder(this, 6),
                         new MySphere(this, 16, 8),
-                        new MyVehicle(this, 4, 1),
                     ];
 
         this.objecstList = {
+                            '-':10, 
                             'Cylinder': 0,
                             'Sphere': 1,
-                            'Vehicle' : 2,
                         };
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.selectedObject = 0;
+        this.displayVehicle = true;
+        this.selectedObject = 10;
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
     }
+
+    checkKeys() {
+        var text = "Keys pressed: ";
+        let keysPressed = false;
+
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            this.vehicle.accelerate(0.01 * this.speedFactor);            
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyS")) {
+            this.vehicle.accelerate(-0.01 * this.speedFactor);
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyA")) {
+            this.vehicle.turn(5);
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyD")) {
+            this.vehicle.turn(-5);
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyR")) {
+            this.vehicle.reset();
+            keysPressed = true;
+        }
+
+        if (keysPressed)
+            this.vehicle.update();
+    }
+
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -57,7 +95,7 @@ class MyScene extends CGFscene {
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
+        this.checkKeys();
     }
 
     display() {
@@ -78,9 +116,13 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
-        // ---- BEGIN Primitive drawing section
+        // ---- BEGIN Primitive drawing sections
+        if (this.displayVehicle) {
+            this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+            this.vehicle.display();
+        }
+
         this.objects[this.selectedObject].display();
- 
 
         // ---- END Primitive drawing section
     }

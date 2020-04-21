@@ -6,8 +6,8 @@ class MyVehicle extends CGFobject {
         this.x = 0;
         this.y = 0;
         this.z = 0;
-  
-        this.angle = 0;
+        this.angleYY = 0;
+        this.speed = 0;
 
         this.initBuffers();
     }
@@ -68,23 +68,41 @@ class MyVehicle extends CGFobject {
       this.initNormalVizBuffers();
     }
 
-    display() {
-      this.scene.setDiffuse(0,0,1);
-        this.scene.setSpecular(0, 0, 0, 1);
-        this.scene.setAmbient(0, 0, 0.5, 1);
-
-        this.scene.pushMatrix();
-
-        this.scene.translate(this.x, this.y, this.z);
-        this.scene.rotate(this.angle*Math.PI/180.0, 0, 1, 0);
-
-        this.scene.translate(0,0,-0.5);
-        this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
-        super.display();
-
-        this.scene.popMatrix();
+    update(){
+      this.x += this.speed * Math.sin(this.angleYY*Math.PI/180);
+      this.z += this.speed * Math.cos(this.angleYY*Math.PI/180);
     }
 
+    turn(val){
+      this.angleYY += val;
+    }
 
+    accelerate(val){
+      this.speed += val;
+    }
+
+    reset(){
+      this.x = 0;
+      this.y = 0;
+      this.z = 0;
+      this.speed = 0;
+      this.angleYY = 0;
+    }
+
+    display() {
+      this.scene.setDiffuse(0,0,1);
+      this.scene.setSpecular(0, 0, 0, 1);
+      this.scene.setAmbient(0, 0, 0.5, 1);
+
+      this.scene.pushMatrix();
+      this.scene.translate(this.x, this.y, this.z);
+      this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
+
+      this.scene.translate(0,0,-0.5);
+      this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
+      super.display();
+
+      this.scene.popMatrix();
+    }
 }
   
