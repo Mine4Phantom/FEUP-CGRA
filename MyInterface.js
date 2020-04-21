@@ -18,13 +18,14 @@ class MyInterface extends CGFinterface {
 
         //Checkbox element in GUI
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-        this.gui.add(this.scene, 'selectedObject', this.scene.objecstList).name('Selected Object');
+        this.gui.add(this.scene, 'displayCube').name('Display UnitCube');
         this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
         this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
         this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
+        this.gui.add(this.scene, 'selectedObject', this.scene.objecstList).name('Selected Object');
 
         this.initKeys();
-        
+
         return true;
     }
 
@@ -38,7 +39,7 @@ class MyInterface extends CGFinterface {
         //create a named array to storie which keys are beinh pressed
         this.activeKeys={};
     }
-    
+
     processKeyDown(event){
         //called when a key is pressed down
         //mark it as active in the array
@@ -54,5 +55,10 @@ class MyInterface extends CGFinterface {
         //returns true if a key is marked as pressed, false otherwise
         return this.activeKeys[keyCode] || false;
     }
+
     
+
+
+
+
 }
