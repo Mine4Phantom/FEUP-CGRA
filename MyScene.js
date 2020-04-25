@@ -28,15 +28,9 @@ class MyScene extends CGFscene {
         this.quad = new MyQuad(this);
         this.cube = new Mycanyonmap(this);
         this.vehicle = new MyVehicle(this, 4, 1);
-        this.objects = [new MyCylinder(this, 6),
-                        new MySphere(this, 16, 8)                
-                    ];
+        this.sphere = new MySphere(this, 16, 8);
+        this.cylinder = new MyCylinder(this, 6);
 
-        this.objecstList = {
-                            '-':10,
-                            'Cylinder': 0,
-                            'Sphere': 1
-                        };
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -52,7 +46,8 @@ class MyScene extends CGFscene {
         this.displayAxis = true;
         this.displayCube = true;
         this.displayVehicle = true;
-        this.selectedObject = 10;
+        this.displaySphere = false;
+        this.displayCylinder = false;
         this.scaleFactor = 1;
         this.speedFactor = 1;
         this.selectedTexture = -1;
@@ -154,7 +149,13 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        
+        if (this.displayCylinder) {
+            this.cylinder.display();
+        }
+      
+        if (this.displaySphere) {
+            this.sphere.display();
+        }
 
         if (this.displayVehicle) {
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
@@ -166,7 +167,6 @@ class MyScene extends CGFscene {
             this.cube.display();
         }
  
-        this.objects[this.selectedObject].display();
         
         // ---- END Primitive drawing section
     }
