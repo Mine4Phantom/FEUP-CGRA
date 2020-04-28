@@ -40,7 +40,17 @@ class MyScene extends CGFscene {
         this.quadMaterial.setShininess(10.0);
         this.quadMaterial.loadTexture('images/default.png');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
-        //------
+
+/*
+        this.earth = new CGFtexture(this.scene, "images/earth.jpg");
+        this.material = new CGFappearance(this.scene);
+        this.material.setAmbient(0.1, 0.1, 0.1, 1);
+        this.material.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.material.setSpecular(0.1, 0.1, 0.1, 1);
+        this.material.setShininess(10.0);
+        this.material.setTexture(this.texture);
+        this.material.setTextureWrap('REPEAT', 'REPEAT');
+*/
 
         //Objects connected to MyInterface
         this.displayAxis = true;

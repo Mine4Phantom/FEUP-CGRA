@@ -24,15 +24,6 @@ class MySphere extends CGFobject {
     this.normals = [];
     this.texCoords = [];
 
-    this.texture = new CGFtexture(this.scene, "images/earth.jpg");
-    this.material = new CGFappearance(this.scene);
-    this.material.setAmbient(0.1, 0.1, 0.1, 1);
-    this.material.setDiffuse(0.9, 0.9, 0.9, 1);
-    this.material.setSpecular(0.1, 0.1, 0.1, 1);
-    this.material.setShininess(10.0);
-    this.material.setTexture(this.texture);
-    this.material.setTextureWrap('REPEAT', 'REPEAT');
-
     var phi = 0;
     var theta = 0;
     var phiInc = Math.PI / this.latDivs;
