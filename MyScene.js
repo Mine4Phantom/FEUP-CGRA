@@ -50,7 +50,7 @@ class MyScene extends CGFscene {
         this.displayCylinder = false;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        this.selectedTexture = -1;
+        //this.selectedTexture = -1;
         this.wrapS = 0;
         this.wrapT = 0;
 
