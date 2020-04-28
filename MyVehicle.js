@@ -3,6 +3,8 @@ class MyVehicle extends CGFobject {
         super(scene);
         this.stacks = stacks;
         this.slices = slices;
+
+        this.body = new MyBody(this.scene);
         this.x = 0;
         this.y = 0;
         this.z = 0;
@@ -90,6 +92,7 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
+      /*
       this.scene.setDiffuse(0,0,1);
       this.scene.setSpecular(0, 0, 0, 1);
       this.scene.setAmbient(0, 0, 0.5, 1);
@@ -103,6 +106,8 @@ class MyVehicle extends CGFobject {
       super.display();
 
       this.scene.popMatrix();
+    */
+      this.body.display();
     }
 }
   
