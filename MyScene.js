@@ -41,16 +41,15 @@ class MyScene extends CGFscene {
         this.quadMaterial.loadTexture('images/default.png');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-/*
-        this.earth = new CGFtexture(this.scene, "images/earth.jpg");
-        this.material = new CGFappearance(this.scene);
-        this.material.setAmbient(0.1, 0.1, 0.1, 1);
-        this.material.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.material.setSpecular(0.1, 0.1, 0.1, 1);
-        this.material.setShininess(10.0);
-        this.material.setTexture(this.texture);
-        this.material.setTextureWrap('REPEAT', 'REPEAT');
-*/
+        this.sphereMaterial = new CGFappearance(this);
+        this.sphereMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sphereMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.sphereMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.sphereMaterial.setShininess(10.0);
+        this.sphereMaterial.loadTexture("images/earth.jpg");
+        this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
+
+        //------
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -164,6 +163,7 @@ class MyScene extends CGFscene {
         }
       
         if (this.displaySphere) {
+            this.sphereMaterial.apply();
             this.sphere.display();
         }
 

@@ -85,9 +85,5 @@ class MySphere extends CGFobject {
     this.initGLBuffers();
   }
 
-  display() {
-    this.material.apply();
-    super.display();
-    this.scene.setDefaultAppearance();
-  }
+  
 }
