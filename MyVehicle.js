@@ -30,9 +30,9 @@ class MyVehicle extends CGFobject {
           var ca=Math.cos(ang);
           var caa=Math.cos(ang+angphi);
 
-          this.vertices.push(0,1,0);
-          this.vertices.push(ca, 0, -sa);
-          this.vertices.push(caa, 0, -saa);
+          this.vertices.push(0,0,0);
+          this.vertices.push(0, 0, 0);
+          this.vertices.push(0, 0, 0);
 
           var normal= [
               saa-sa,
@@ -92,7 +92,7 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
-      /*
+      
       this.scene.setDiffuse(0,0,1);
       this.scene.setSpecular(0, 0, 0, 1);
       this.scene.setAmbient(0, 0, 0.5, 1);
@@ -102,12 +102,18 @@ class MyVehicle extends CGFobject {
       this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
 
       this.scene.translate(0,0,-0.5);
-      this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
+      //this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
       super.display();
-
-      this.scene.popMatrix();
-    */
       this.body.display();
+      this.scene.popMatrix();
+    }
+    
+    setFillMode() {
+      this.primitiveType=this.scene.gl.TRIANGLES;
+    }
+
+    setLineMode() {
+      this.primitiveType=this.scene.gl.LINE_STRIP;
     }
 }
   

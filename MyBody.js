@@ -4,7 +4,9 @@ class MyBody extends CGFobject {
         //this.initMaterials(scene);
         this.scene = scene;
         this.body = new MySphere(scene, 16, 8);
-        this.cockpit = new MyCockpit(this.scene)
+        this.cockpit = new MyCockpit(this.scene);
+        this.rudder = new MyRudder(this.scene);
+        this.prope = new MyPropeller(this.scene);
         
     }
 
@@ -39,6 +41,50 @@ class MyBody extends CGFobject {
         this.scene.scale(0.045,0.045,0.1);
         this.scene.setDiffuse(1,1,0);
         this.body.display();
+        this.scene.popMatrix();
+
+        //Leme R
+        this.scene.pushMatrix();
+        this.scene.translate(0.3, 0, -0.6);
+        this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
+        this.rudder.display();
+        this.scene.popMatrix();
+
+
+        //Leme L
+        this.scene.pushMatrix();
+        this.scene.translate(-0.3, 0, -0.6);
+        this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
+        this.rudder.display();
+        this.scene.popMatrix();
+
+        //Leme U
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.3, -0.6);
+        this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
+        this.rudder.display();
+        this.scene.popMatrix();
+
+
+        //Leme D
+        this.scene.pushMatrix();
+        this.scene.translate(0, -0.3, -0.6);
+        this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
+        this.rudder.display();
+        this.scene.popMatrix();
+
+        //Ventoinha R
+        this.scene.pushMatrix();
+        this.scene.translate(0.12, -0.55, -0.30);
+        this.scene.scale(0.02, 0.02, 0.02);
+        this.prope.display();
+        this.scene.popMatrix();
+
+        //Ventoinha L
+        this.scene.pushMatrix();
+        this.scene.translate(-0.12, -0.55, -0.30);
+        this.scene.scale(0.02, 0.02, 0.02);
+        this.prope.display();
         this.scene.popMatrix();
 
     }
