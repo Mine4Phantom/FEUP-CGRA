@@ -62,6 +62,7 @@ class MyScene extends CGFscene {
         //this.selectedTexture = -1;
         this.wrapS = 0;
         this.wrapT = 0;
+        //this.lastUpdate = 0;
 
         this.textures = [this.texture1, this.texture2, this.texture3];
         this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
@@ -79,6 +80,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyW")) {
             this.vehicle.accelerate(0.01 * this.speedFactor);            
             keysPressed = true;
+            
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
@@ -96,6 +98,7 @@ class MyScene extends CGFscene {
             keysPressed = true;
         }
 
+
         if (this.gui.isKeyPressed("KeyR")) {
             this.vehicle.reset();
             keysPressed = true;
@@ -104,6 +107,7 @@ class MyScene extends CGFscene {
         if (keysPressed)
             this.vehicle.update();
     }
+    
 
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -122,6 +126,7 @@ class MyScene extends CGFscene {
     }
     update(t){
         this.checkKeys();
+        this.vehicle.update();
     }
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
@@ -168,7 +173,9 @@ class MyScene extends CGFscene {
         }
 
         if (this.displayVehicle) {
+            //this.translate(this.vehicle.x, 10, this.vehicle.z);
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+            //this.translate(-this.vehicle.x, -10, -this.vehicle.z);
             this.vehicle.display();
         }
         

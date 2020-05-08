@@ -10,57 +10,9 @@ class MyVehicle extends CGFobject {
         this.z = 0;
         this.angleYY = 0;
         this.speed = 0;
+        this.propellerAng = 0;
 
         this.initBuffers();
-    }
-  
-
-    initBuffers() {
-        this.vertices = [];
-        this.indices = [];
-        this.normals = [];
-        this.texCoords = [];
-    
-        var ang = 0;
-        var angphi = 2*Math.PI/this.slices;
-
-        for(var i = 0; i < this.slices; i++){
-          var sa=Math.sin(ang);
-          var saa=Math.sin(ang+angphi);
-          var ca=Math.cos(ang);
-          var caa=Math.cos(ang+angphi);
-
-          this.vertices.push(0,0,0);
-          this.vertices.push(0, 0, 0);
-          this.vertices.push(0, 0, 0);
-
-          var normal= [
-              saa-sa,
-              ca*saa-sa*caa,
-              caa-ca
-          ];
-
-          var nsize=Math.sqrt(
-              normal[0]*normal[0]+
-              normal[1]*normal[1]+
-              normal[2]*normal[2]
-          );
-
-          normal[0]/=nsize;
-          normal[1]/=nsize;
-          normal[2]/=nsize;
-
-          this.normals.push(...normal);
-          this.normals.push(...normal);
-          this.normals.push(...normal);
-
-          this.indices.push(3*i, (3*i+1) , (3*i+2) );
-
-          ang+=angphi;
-      }
-      
-      this.primitiveType = this.scene.gl.TRIANGLES;
-      this.initGLBuffers();
     }
   
     updateBuffers(complexity){
@@ -73,6 +25,8 @@ class MyVehicle extends CGFobject {
     update(){
       this.x += this.speed * Math.sin(this.angleYY*Math.PI/180);
       this.z += this.speed * Math.cos(this.angleYY*Math.PI/180);
+
+      this.propellerAng += 25 * this.speed;
     }
 
     turn(val){
@@ -81,6 +35,7 @@ class MyVehicle extends CGFobject {
 
     accelerate(val){
       this.speed += val;
+      if(this.speed<0) this.speed=0;
     }
 
     reset(){
@@ -92,18 +47,10 @@ class MyVehicle extends CGFobject {
     }
 
     display() {
-      
-      this.scene.setDiffuse(0,0,1);
-      this.scene.setSpecular(0, 0, 0, 1);
-      this.scene.setAmbient(0, 0, 0.5, 1);
 
       this.scene.pushMatrix();
       this.scene.translate(this.x, this.y, this.z);
       this.scene.rotate(this.angleYY*Math.PI/180.0, 0, 1, 0);
-
-      this.scene.translate(0,0,-0.5);
-      //this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
-      super.display();
       this.body.display();
       this.scene.popMatrix();
     }

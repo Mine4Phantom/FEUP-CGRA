@@ -62,6 +62,10 @@ class MyBody extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, 0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
+        if (this.scene.gui.isKeyPressed("KeyD"))
+            this.scene.rotate(Math.PI / 9.0, 0, 1, 0);
+        if (this.scene.gui.isKeyPressed("KeyA"))
+            this.scene.rotate(-Math.PI / 9.0, 0, 1, 0);
         this.rudder.display();
         this.scene.popMatrix();
 
@@ -70,12 +74,17 @@ class MyBody extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0, -0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
+        if (this.scene.gui.isKeyPressed("KeyD"))
+            this.scene.rotate(Math.PI / 9.0, 0, 1, 0);
+        if (this.scene.gui.isKeyPressed("KeyA"))
+            this.scene.rotate(-Math.PI / 9.0, 0, 1, 0);
         this.rudder.display();
         this.scene.popMatrix();
 
         //Ventoinha R
         this.scene.pushMatrix();
         this.scene.translate(0.12, -0.55, -0.30);
+        this.scene.rotate(this.scene.vehicle.propellerAng, 0, 0, 1);
         this.scene.scale(0.02, 0.02, 0.02);
         this.prope.display();
         this.scene.popMatrix();
@@ -83,6 +92,7 @@ class MyBody extends CGFobject {
         //Ventoinha L
         this.scene.pushMatrix();
         this.scene.translate(-0.12, -0.55, -0.30);
+        this.scene.rotate(this.scene.vehicle.propellerAng, 0, 0, 1);
         this.scene.scale(0.02, 0.02, 0.02);
         this.prope.display();
         this.scene.popMatrix();
