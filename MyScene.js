@@ -72,6 +72,7 @@ class MyScene extends CGFscene {
         this.displayVehicle = true;
         this.displaySphere = false;
         this.displayCylinder = false;
+        this.displayTerrain = true;
         this.scaleFactor = 1;
         this.speedFactor = 1;
         //this.selectedTexture = -1;
@@ -203,7 +204,7 @@ class MyScene extends CGFscene {
             this.quadMaterial.apply();
             this.cube.display();
         }
-
+        if(this.displayTerrain){
         //apply default terrain appearance
         this.appearance.apply();
 
@@ -221,6 +222,7 @@ class MyScene extends CGFscene {
 		this.setActiveShader(this.defaultShader);
 
         this.setDefaultAppearance();
+        }
         
         // ---- END Primitive drawing section
     }
