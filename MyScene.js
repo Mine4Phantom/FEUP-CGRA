@@ -23,6 +23,9 @@ class MyScene extends CGFscene {
         
         this.enableTextures(true);
 
+        //Textures
+        this.heightTex = new CGFtexture(this, 'textures/heightmap.jpg');
+
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
@@ -30,6 +33,7 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this, 4, 1);
         this.sphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 6);
+        this.terrain = new MyPlane(this, 20);
 
 
         //------ Applied Material
@@ -49,7 +53,18 @@ class MyScene extends CGFscene {
         this.sphereMaterial.loadTexture("images/earth.jpg");
         this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
 
-        //------
+        this.appearance = new CGFappearance(this);
+		this.appearance.setAmbient(0.2, 0.4, 0.8, 1);
+		this.appearance.setDiffuse(0.2, 0.7, 0.7, 1);
+		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+		this.appearance.setShininess(120);
+		this.appearance.loadTexture('images/terrain.jpg');
+		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+
+        //------Shaders
+        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader.setUniformsValues({uSampler2: 1});
+
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -163,27 +178,49 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        
+        //Cilinder display
         if (this.displayCylinder) {
             this.cylinder.display();
         }
       
+        //Sphere display
         if (this.displaySphere) {
             this.sphereMaterial.apply();
             this.sphere.display();
         }
 
+        //Vehicle display
         if (this.displayVehicle) {
             //this.translate(this.vehicle.x, 10, this.vehicle.z);
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
             //this.translate(-this.vehicle.x, -10, -this.vehicle.z);
             this.vehicle.display();
         }
-        
+
+        //CubeMap display
         if(this.displayCube){
             this.quadMaterial.apply();
             this.cube.display();
         }
- 
+
+        //apply default terrain appearance
+        this.appearance.apply();
+
+        //Terrain display
+        // bind additional texture to texture unit 1
+        this.heightTex.bind(1);
+        this.setActiveShader(this.terrainShader);
+        this.pushMatrix();
+        this.translate(0, -5, 0);
+        this.scale(50, 8, 50);
+        this.rotate(-Math.PI / 2, 1, 0, 0);
+        this.terrain.display();
+        this.popMatrix();
+        // restore default shader (will be needed for drawing the axis in next frame)
+		this.setActiveShader(this.defaultShader);
+
+        this.setDefaultAppearance();
         
         // ---- END Primitive drawing section
     }
