@@ -17,6 +17,9 @@ serialInclude(['../lib/CGF.js',
                 'MyPropeller.js',
                 'MyTriangle.js',
                 'MyPlane.js',
+                'MySupply.js',
+                'MySupplyFalling.js',
+                'MySupplyLanded.js',
 
 main=function()
 {

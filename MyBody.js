@@ -13,7 +13,7 @@ class MyBody extends CGFobject {
    
     display() {
         //Estrutura
-        this.scene.setDiffuse(102/255, 0, 102/255, 102/255);       
+        this.scene.setDiffuse(1, 0, 0, 0);       
         this.scene.pushMatrix();
         this.scene.scale(0.5,0.5,1);
         this.body.display();
@@ -29,9 +29,9 @@ class MyBody extends CGFobject {
 
         //Motor R
         this.scene.pushMatrix();
+        this.scene.setDiffuse(1,1,0);
         this.scene.translate(0.12, -0.55, -0.2)
         this.scene.scale(0.045,0.045,0.1);
-        this.scene.setDiffuse(1,1,0);
         this.body.display();
         this.scene.popMatrix();
 
@@ -39,12 +39,12 @@ class MyBody extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-0.12, -0.55, -0.2)
         this.scene.scale(0.045,0.045,0.1);
-        this.scene.setDiffuse(1,1,0);
         this.body.display();
         this.scene.popMatrix();
 
         //Leme R
         this.scene.pushMatrix();
+        this.scene.setDiffuse(1,1,0);
         this.scene.translate(0.3, 0, -0.6);
         this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
         this.rudder.display();
@@ -53,6 +53,7 @@ class MyBody extends CGFobject {
 
         //Leme L
         this.scene.pushMatrix();
+        this.scene.setDiffuse(1,1,0);
         this.scene.translate(-0.3, 0, -0.6);
         this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
         this.rudder.display();
@@ -83,6 +84,7 @@ class MyBody extends CGFobject {
 
         //Ventoinha R
         this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0.12, -0.55, -0.30);
         this.scene.rotate(this.scene.vehicle.propellerAng, 0, 0, 1);
         this.scene.scale(0.02, 0.02, 0.02);
@@ -91,6 +93,7 @@ class MyBody extends CGFobject {
 
         //Ventoinha L
         this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(-0.12, -0.55, -0.30);
         this.scene.rotate(this.scene.vehicle.propellerAng, 0, 0, 1);
         this.scene.scale(0.02, 0.02, 0.02);

@@ -32,8 +32,14 @@ class MyScene extends CGFscene {
         this.cube = new Mycanyonmap(this);
         this.vehicle = new MyVehicle(this, 4, 1);
         this.sphere = new MySphere(this, 16, 8);
-        this.cylinder = new MyCylinder(this, 6);
         this.terrain = new MyPlane(this, 20);
+        this.s1 = new MySupply(this);
+        this.s2 = new MySupply(this);
+        this.s3 = new MySupply(this);
+        this.s4 = new MySupply(this);
+        this.s5 = new MySupply(this);
+
+        this.supplies = [this.s1, this.s2, this.s3, this.s4, this.s5];
 
 
         //------ Applied Material
@@ -79,6 +85,8 @@ class MyScene extends CGFscene {
         this.wrapS = 0;
         this.wrapT = 0;
         //this.lastUpdate = 0;
+        this.nSuppliesDelivered = 0;
+
 
         this.textures = [this.texture1, this.texture2, this.texture3];
         this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
@@ -116,7 +124,22 @@ class MyScene extends CGFscene {
 
 
         if (this.gui.isKeyPressed("KeyR")) {
+            keysPressed = true;
             this.vehicle.reset();
+            nSuppliesDelivered=0;
+            this.s1.reset();
+            this.s2.reset();
+            this.s3.reset();
+            this.s4.reset();
+            this.s5.reset();
+        }
+
+        if (this.gui.isKeyPressed("KeyL")) {
+            
+            if (this.nSuppliesDelivered <= 4){
+              this.supplies[this.nSuppliesDelivered].drop(this.vehicle.x, this.vehicle.z);
+              this.nSuppliesDelivered++;
+            }
             keysPressed = true;
         }
 
@@ -143,6 +166,11 @@ class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.vehicle.update();
+        this.s1.update();
+        this.s2.update();
+        this.s3.update();
+        this.s4.update();
+        this.s5.update();
     }
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
@@ -178,12 +206,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
         
-        //Cilinder display
-        if (this.displayCylinder) {
-            this.cylinder.display();
-        }
       
         //Sphere display
         if (this.displaySphere) {
@@ -193,10 +216,12 @@ class MyScene extends CGFscene {
 
         //Vehicle display
         if (this.displayVehicle) {
-            //this.translate(this.vehicle.x, 10, this.vehicle.z);
+            this.pushMatrix();
+            //this.translate(this.vehicle.x, this.vehicle.y, this.vehicle.z);
             this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-            //this.translate(-this.vehicle.x, -10, -this.vehicle.z);
+            //this.translate(-this.vehicle.x, -this.vehicle.y, -this.vehicle.z);
             this.vehicle.display();
+            this.popMatrix();
         }
 
         //CubeMap display
@@ -204,25 +229,32 @@ class MyScene extends CGFscene {
             this.quadMaterial.apply();
             this.cube.display();
         }
+
         if(this.displayTerrain){
-        //apply default terrain appearance
-        this.appearance.apply();
+            //apply default terrain appearance
+            this.appearance.apply();
 
-        //Terrain display
-        // bind additional texture to texture unit 1
-        this.heightTex.bind(1);
-        this.setActiveShader(this.terrainShader);
-        this.pushMatrix();
-        this.translate(0, -5, 0);
-        this.scale(50, 8, 50);
-        this.rotate(-Math.PI / 2, 1, 0, 0);
-        this.terrain.display();
-        this.popMatrix();
-        // restore default shader (will be needed for drawing the axis in next frame)
-		this.setActiveShader(this.defaultShader);
+            //Terrain display
+            // bind additional texture to texture unit 1
+            this.heightTex.bind(1);
+            this.setActiveShader(this.terrainShader);
+            this.pushMatrix();
+            this.translate(0, -10, 0);
+            this.scale(50, 8, 50);
+            this.rotate(-Math.PI / 2, 1, 0, 0);
+            this.terrain.display();
+            this.popMatrix();
+            // restore default shader (will be needed for drawing the axis in next frame)
+		    this.setActiveShader(this.defaultShader);
 
-        this.setDefaultAppearance();
+            this.setDefaultAppearance();
         }
+
+        this.s1.display();
+        this.s2.display();
+        this.s3.display();
+        this.s4.display();
+        this.s5.display();
         
         // ---- END Primitive drawing section
     }
