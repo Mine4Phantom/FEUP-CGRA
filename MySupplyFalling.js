@@ -9,8 +9,8 @@ class MySupplyFalling extends CGFobject {
     initTexture(scene){
         this.tex = new CGFappearance(scene);
         this.tex.setAmbient(0.9, 0.9, 0.9, 1);
-        this.tex.setDiffuse(0.0, 0.0, 0.0, 1);
-        this.tex.setSpecular(0.0, 0.0, 0.0, 1);
+        this.tex.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.tex.setSpecular(0.3, 0.3, 0.3, 1);
         this.tex.setShininess(10.0);
         this.tex.loadTexture('textures/suppliestext.jpg');
         this.tex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');

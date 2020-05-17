@@ -1,7 +1,7 @@
 class MyBody extends CGFobject {
     constructor(scene) {
         super(scene);
-        //this.initMaterials(scene);
+        this.initTexture(scene);
         this.scene = scene;
         this.body = new MySphere(scene, 16, 8);
         this.cockpit = new MyCockpit(this.scene);
@@ -10,26 +10,20 @@ class MyBody extends CGFobject {
         
     }
 
+    initTexture(scene){
+        this.tex = new CGFappearance(scene);
+        this.tex.setAmbient(0.9, 0.9, 0.9, 1);
+        this.tex.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.tex.setSpecular(0.3, 0.3, 0.3, 1);
+        this.tex.setShininess(10.0);
+        this.tex.loadTexture('textures/aviao2.jpg');
+        this.tex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+    }
    
     display() {
-        //Estrutura
-        this.scene.setDiffuse(1, 0, 0, 0);       
-        this.scene.pushMatrix();
-        this.scene.scale(0.5,0.5,1);
-        this.body.display();
-        this.scene.popMatrix();
-
-        //Cockpit
-        this.scene.pushMatrix();
-        this.scene.translate(0,-0.5,0);
-        this.scene.scale(0.1,0.1,0.1);
-        this.scene.setDiffuse(1, 102/255, 0, 0);        
-        this.cockpit.display();
-        this.scene.popMatrix();
-
         //Motor R
         this.scene.pushMatrix();
-        this.scene.setDiffuse(1,1,0);
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0.12, -0.55, -0.2)
         this.scene.scale(0.045,0.045,0.1);
         this.body.display();
@@ -37,14 +31,29 @@ class MyBody extends CGFobject {
 
         //Motor L
         this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(-0.12, -0.55, -0.2)
         this.scene.scale(0.045,0.045,0.1);
         this.body.display();
         this.scene.popMatrix();
 
+        //Estrutura
+        this.scene.pushMatrix();
+        this.scene.scale(0.5,0.5,1);
+        this.tex.apply();
+        this.body.display();
+        this.scene.popMatrix();
+
+        //Cockpit
+        this.scene.pushMatrix();
+        this.scene.translate(0,-0.5,0);
+        this.scene.scale(0.1,0.1,0.1);
+        this.tex.apply();
+        this.cockpit.display();
+        this.scene.popMatrix();
         //Leme R
         this.scene.pushMatrix();
-        this.scene.setDiffuse(1,1,0);
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0.3, 0, -0.6);
         this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
         this.rudder.display();
@@ -53,7 +62,7 @@ class MyBody extends CGFobject {
 
         //Leme L
         this.scene.pushMatrix();
-        this.scene.setDiffuse(1,1,0);
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(-0.3, 0, -0.6);
         this.scene.rotate(90*Math.PI/180.0, 0, 0, 1);
         this.rudder.display();
@@ -61,6 +70,7 @@ class MyBody extends CGFobject {
 
         //Leme U
         this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0, 0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
         if (this.scene.gui.isKeyPressed("KeyD"))
@@ -73,6 +83,7 @@ class MyBody extends CGFobject {
 
         //Leme D
         this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0, -0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
         if (this.scene.gui.isKeyPressed("KeyD"))

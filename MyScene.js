@@ -124,14 +124,13 @@ class MyScene extends CGFscene {
 
 
         if (this.gui.isKeyPressed("KeyR")) {
-            keysPressed = true;
+            
             this.vehicle.reset();
             nSuppliesDelivered=0;
-            this.s1.reset();
-            this.s2.reset();
-            this.s3.reset();
-            this.s4.reset();
-            this.s5.reset();
+            for (var i=0 ; i<5; i++){
+                this.supplies[i].reset();
+            }
+            keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyL")) {
@@ -172,6 +171,7 @@ class MyScene extends CGFscene {
         this.s4.update();
         this.s5.update();
     }
+    
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
         this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
@@ -186,6 +186,7 @@ class MyScene extends CGFscene {
     updateTexCoords() {
         this.quad.updateTexCoords(this.texCoords);
     }
+    
 
     display() {
         // ---- BEGIN Background, camera and axis setup
