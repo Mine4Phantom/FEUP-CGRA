@@ -126,7 +126,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             
             this.vehicle.reset();
-            nSuppliesDelivered=0;
+            this.nSuppliesDelivered=0;
             for (var i=0 ; i<5; i++){
                 this.supplies[i].reset();
             }
