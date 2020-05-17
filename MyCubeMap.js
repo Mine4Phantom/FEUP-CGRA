@@ -18,7 +18,7 @@ class Mycanyonmap extends CGFobject {
         this.left.setSpecular(0, 0, 0, 1);
         this.left.setAmbient(0.9, 0.9, 0.9, 1);
         this.left.setEmission(0.5, 0.5, 0.5, 1);
-        this.left.loadTexture('images/split_canyonmap/left.png');
+        this.left.loadTexture('images/split_canyonmap/canyonleft.png');
         this.left.setTextureWrap('REPEAT', 'REPEAT');
 
         this.front = new CGFappearance(this.scene);
@@ -27,7 +27,7 @@ class Mycanyonmap extends CGFobject {
         this.front.setSpecular(0, 0, 0, 1);
         this.front.setAmbient(0.9, 0.9, 0.9, 1);
         this.front.setEmission(0.5, 0.5, 0.5, 1);
-        this.front.loadTexture('images/split_canyonmap/front.png');
+        this.front.loadTexture('images/split_canyonmap/canyonfront.png');
         this.front.setTextureWrap('REPEAT', 'REPEAT');
 
         this.back = new CGFappearance(this.scene);
@@ -36,7 +36,7 @@ class Mycanyonmap extends CGFobject {
         this.back.setSpecular(0, 0, 0, 1);
         this.back.setAmbient(0.9, 0.9, 0.9, 1);
         this.back.setEmission(0.5, 0.5, 0.5, 1);
-        this.back.loadTexture('images/split_canyonmap/back.png');
+        this.back.loadTexture('images/split_canyonmap/canyonback.png');
         this.back.setTextureWrap('REPEAT', 'REPEAT');
 
         this.right = new CGFappearance(this.scene);
@@ -45,7 +45,7 @@ class Mycanyonmap extends CGFobject {
         this.right.setSpecular(0, 0, 0, 1);
         this.right.setAmbient(0.9, 0.9, 0.9, 1);
         this.right.setEmission(0.5, 0.5, 0.5, 1);
-        this.right.loadTexture('images/split_canyonmap/right.png');
+        this.right.loadTexture('images/split_canyonmap/canyonright.png');
         this.right.setTextureWrap('REPEAT', 'REPEAT');
 
         this.top = new CGFappearance(this.scene);
@@ -54,7 +54,7 @@ class Mycanyonmap extends CGFobject {
         this.top.setSpecular(0, 0, 0, 1);
         this.top.setShininess(10.0);
         this.top.setEmission(0.5, 0.5, 0.5, 1);
-        this.top.loadTexture('images/split_canyonmap/top.png');
+        this.top.loadTexture('images/split_canyonmap/canyontop.png');
         this.top.setTextureWrap('REPEAT', 'REPEAT');
 
         this.bottom = new CGFappearance(this.scene);
@@ -63,7 +63,7 @@ class Mycanyonmap extends CGFobject {
         this.bottom.setSpecular(0, 0, 0, 1);
         this.bottom.setShininess(10.0);
         this.bottom.setEmission(0.5, 0.5, 0.5, 1);
-        this.bottom.loadTexture('images/split_canyonmap/bottom.png');
+        this.bottom.loadTexture('images/split_canyonmap/canyonbot.png');
         this.bottom.setTextureWrap('REPEAT', 'REPEAT');
 	}
     
