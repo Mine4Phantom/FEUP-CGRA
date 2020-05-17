@@ -29,7 +29,7 @@ class MySupply extends CGFobject {
     }
 
     land(){
-        if (this.y = -5) {
+        if (this.y <= -5) {
             this.state = SupplyStates.LANDED;
         }
     }
