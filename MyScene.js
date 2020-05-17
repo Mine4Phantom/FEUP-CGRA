@@ -85,6 +85,7 @@ class MyScene extends CGFscene {
         this.wrapS = 0;
         this.wrapT = 0;
         //this.lastUpdate = 0;
+        var t = 0;
         this.nSuppliesDelivered = 0;
 
 
@@ -100,24 +101,25 @@ class MyScene extends CGFscene {
         var text = "Keys pressed: ";
         let keysPressed = false;
 
+    
         // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW")) {
+        if (this.gui.isKeyPressed("KeyW") && !this.vehicle.autopilot) {
             this.vehicle.accelerate(0.01 * this.speedFactor);            
             keysPressed = true;
             
         }
 
-        if (this.gui.isKeyPressed("KeyS")) {
+        if (this.gui.isKeyPressed("KeyS") && !this.vehicle.autopilot) {
             this.vehicle.accelerate(-0.01 * this.speedFactor);
             keysPressed = true;
         }
 
-        if (this.gui.isKeyPressed("KeyA")) {
+        if (this.gui.isKeyPressed("KeyA") && !this.vehicle.autopilot) {
             this.vehicle.turn(5);
             keysPressed = true;
         }
 
-        if (this.gui.isKeyPressed("KeyD")) {
+        if (this.gui.isKeyPressed("KeyD") && !this.vehicle.autopilot) {
             this.vehicle.turn(-5);
             keysPressed = true;
         }
@@ -126,10 +128,16 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             
             this.vehicle.reset();
-            nSuppliesDelivered=0;
+            this.nSuppliesDelivered=0;
             for (var i=0 ; i<5; i++){
                 this.supplies[i].reset();
             }
+            keysPressed = true;
+        }
+
+        if(this.gui.isKeyPressed("KeyP") && !this.vehicle.autopilot) {
+
+            this.vehicle.startAutoPilot();
             keysPressed = true;
         }
 
@@ -141,9 +149,10 @@ class MyScene extends CGFscene {
             }
             keysPressed = true;
         }
-
+        /*
         if (keysPressed)
-            this.vehicle.update();
+            this.vehicle.update(t);
+            */
     }
     
 
@@ -164,7 +173,7 @@ class MyScene extends CGFscene {
     }
     update(t){
         this.checkKeys();
-        this.vehicle.update();
+        this.vehicle.update(t);
         this.s1.update();
         this.s2.update();
         this.s3.update();

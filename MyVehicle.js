@@ -12,6 +12,9 @@ class MyVehicle extends CGFobject {
         this.speed = 0;
         this.propellerAng = 0;
 
+        this.autopilot = false;
+        this.time = 0;
+
         this.initBuffers();
     }
   
@@ -22,12 +25,40 @@ class MyVehicle extends CGFobject {
       this.initNormalVizBuffers();
     }
 
-    update(){
-      this.x += this.speed * Math.sin(this.angleYY*Math.PI/180);
-      this.z += this.speed * Math.cos(this.angleYY*Math.PI/180);
-
+    update(t){
+      if(this.autopilot)
+        this.updateAutoPilot(t);
+      else{
+          this.x += this.speed * Math.sin(this.angleYY*Math.PI/180);
+          this.z += this.speed * Math.cos(this.angleYY*Math.PI/180);
+      }
       this.propellerAng += 25 * this.speed;
     }
+
+    updateAutoPilot(t){
+      if(this.time == 0){
+        this.time = t;
+      }
+      else{
+        this.x = this.center[0] - this.replace[0]*5;
+        this.z = this.center[2] - this.replace[2]*5;
+        this.angleYY += ((t - this.time)/1000)*72;
+
+        this.updatePerpendiculars();
+        this.time = t;
+      }
+    }
+
+    startAutoPilot(){
+      this.autopilot = true;
+      this.updatePerpendiculars();
+      this.center = [this.x + this.replace[0]*5, this.y, this.z + this.replace[2]*5];
+  }
+
+    updatePerpendiculars(){
+      this.perpendicular = this.angleYY + 90;
+      this.replace = [Math.sin(this.perpendicular/180*Math.PI), 0, Math.cos(this.perpendicular/180*Math.PI)];
+  }
 
     turn(val){
       this.angleYY += val;
@@ -44,6 +75,8 @@ class MyVehicle extends CGFobject {
       this.z = 0;
       this.speed = 0;
       this.angleYY = 0;
+      this.autopilot = false;
+      this.time = 0;
     }
 
     display() {
