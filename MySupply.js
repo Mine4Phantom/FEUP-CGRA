@@ -29,7 +29,7 @@ class MySupply extends CGFobject {
     }
 
     land(){
-        if (this.y <= -5) {
+        if (this.y <= -7) {
             this.state = SupplyStates.LANDED;
         }
     }
@@ -45,7 +45,7 @@ class MySupply extends CGFobject {
         
         else if(this.state == SupplyStates.LANDED){
             this.scene.pushMatrix();
-            this.scene.translate(this.x, -5, this.z);
+            this.scene.translate(this.x, -7, this.z);
             this.supplyLanded.display();
             this.scene.popMatrix();
         }
