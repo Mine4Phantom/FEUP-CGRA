@@ -20,6 +20,7 @@ serialInclude(['../lib/CGF.js',
                 'MySupply.js',
                 'MySupplyFalling.js',
                 'MySupplyLanded.js',
+                'MyFlag.js',
 
 main=function()
 {

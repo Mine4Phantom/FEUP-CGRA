@@ -7,6 +7,7 @@ class MyBody extends CGFobject {
         this.cockpit = new MyCockpit(this.scene);
         this.rudder = new MyRudder(this.scene);
         this.prope = new MyPropeller(this.scene);
+        this.flag = new MyFlag(this.scene);
         
     }
 
@@ -73,9 +74,9 @@ class MyBody extends CGFobject {
         this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0, 0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
-        if (this.scene.gui.isKeyPressed("KeyD"))
+        if (this.scene.gui.isKeyPressed("KeyD") && !this.scene.vehicle.autopilot)
             this.scene.rotate(Math.PI / 9.0, 0, 1, 0);
-        if (this.scene.gui.isKeyPressed("KeyA"))
+        if (this.scene.gui.isKeyPressed("KeyA") && !this.scene.vehicle.autopilot)
             this.scene.rotate(-Math.PI / 9.0, 0, 1, 0);
         this.rudder.display();
         this.scene.popMatrix();
@@ -86,9 +87,9 @@ class MyBody extends CGFobject {
         this.scene.setDiffuse(0, 1, 0, 0); 
         this.scene.translate(0, -0.3, -0.6);
         this.scene.rotate(90*Math.PI / 9.0, 0, 1, 0);
-        if (this.scene.gui.isKeyPressed("KeyD"))
+        if (this.scene.gui.isKeyPressed("KeyD") && !this.scene.vehicle.autopilot)
             this.scene.rotate(Math.PI / 9.0, 0, 1, 0);
-        if (this.scene.gui.isKeyPressed("KeyA"))
+        if (this.scene.gui.isKeyPressed("KeyA") && !this.scene.vehicle.autopilot)
             this.scene.rotate(-Math.PI / 9.0, 0, 1, 0);
         this.rudder.display();
         this.scene.popMatrix();
@@ -109,6 +110,15 @@ class MyBody extends CGFobject {
         this.scene.rotate(this.scene.vehicle.propellerAng, 0, 0, 1);
         this.scene.scale(0.02, 0.02, 0.02);
         this.prope.display();
+        this.scene.popMatrix();
+
+        //Bandeira
+        this.scene.pushMatrix();
+        this.scene.setDiffuse(0, 1, 0, 0); 
+        this.scene.translate(0,0,1);
+        this.scene.scale(0.2,0.8,0.8);
+        this.tex.apply();
+        this.flag.display();
         this.scene.popMatrix();
 
     }

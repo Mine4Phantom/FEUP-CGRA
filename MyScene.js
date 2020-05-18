@@ -65,12 +65,27 @@ class MyScene extends CGFscene {
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.appearance.setShininess(120);
 		this.appearance.loadTexture('images/terrain.jpg');
-		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        
+        //------ Flag Texture Material
+        this.flagTex = new CGFappearance(this);
+        this.flagTex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.flagTex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.flagTex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.flagTex.setShininess(10.0);
+        this.flagTex.loadTexture('images/red.png');
+        this.flagTex.setTextureWrap('REPEAT', 'REPEAT');
 
         //------Shaders
         this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
         this.terrainShader.setUniformsValues({uSampler2: 1});
+        
+        this.flagShader = new CGFshader(this.gl, "shaders/flag.vert", "shaders/flag.frag");
+        this.flagShader.setUniformsValues({ timeFactor: 0 });
 
+        //mudar nome, ugly
+        this.otherFlagSideShader = new CGFshader(this.gl, "shaders/otherflagside.vert", "shaders/flag.frag");
+        this.otherFlagSideShader.setUniformsValues({ timeFactor: 0 });
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -174,6 +189,8 @@ class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.vehicle.update(t);
+        this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.otherFlagSideShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
         this.s1.update();
         this.s2.update();
         this.s3.update();
