@@ -33,6 +33,7 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this, 4, 1);
         this.sphere = new MySphere(this, 16, 8);
         this.terrain = new MyPlane(this, 20);
+        this.billboard = new MyBillboard(this, 20);
         this.s1 = new MySupply(this);
         this.s2 = new MySupply(this);
         this.s3 = new MySupply(this);
@@ -59,13 +60,21 @@ class MyScene extends CGFscene {
         this.sphereMaterial.loadTexture("images/earth.jpg");
         this.sphereMaterial.setTextureWrap("Repeat", "Clamp to edge");
 
-        this.appearance = new CGFappearance(this);
-		this.appearance.setAmbient(0.2, 0.4, 0.8, 1);
-		this.appearance.setDiffuse(0.2, 0.7, 0.7, 1);
-		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
-		this.appearance.setShininess(120);
-		this.appearance.loadTexture('images/terrain.jpg');
-        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.terrainMaterial = new CGFappearance(this);
+		this.terrainMaterial.setAmbient(0.2, 0.4, 0.8, 1);
+		this.terrainMaterial.setDiffuse(0.2, 0.7, 0.7, 1);
+		this.terrainMaterial.setSpecular(0.0, 0.0, 0.0, 1);
+		this.terrainMaterial.setShininess(120);
+		this.terrainMaterial.loadTexture('images/terrain.jpg');
+        this.terrainMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.billboardMaterial = new CGFappearance(this);
+		this.billboardMaterial.setAmbient(0.2, 0.4, 0.8, 1);
+		this.billboardMaterial.setDiffuse(0.2, 0.7, 0.7, 1);
+		this.billboardMaterial.setSpecular(0.0, 0.0, 0.0, 1);
+		this.billboardMaterial.setShininess(120);
+		this.billboardMaterial.loadTexture('images/gray.png');
+		this.billboardMaterial.setTextureWrap('REPEAT', 'REPEAT');
         
         //------ Flag Texture Material
         this.flagTex = new CGFappearance(this);
@@ -83,6 +92,9 @@ class MyScene extends CGFscene {
         this.flagShader = new CGFshader(this.gl, "shaders/flag.vert", "shaders/flag.frag");
         this.flagShader.setUniformsValues({ timeFactor: 0 });
 
+        this.billboardShader = new CGFshader(this.gl, "shaders/billboard.vert", "shaders/billboard.frag");
+        this.billboardShader.setUniformsValues({ percentageDelivered: 0.0});
+
         //mudar nome, ugly
         this.otherFlagSideShader = new CGFshader(this.gl, "shaders/otherflagside.vert", "shaders/flag.frag");
         this.otherFlagSideShader.setUniformsValues({ timeFactor: 0 });
@@ -94,6 +106,7 @@ class MyScene extends CGFscene {
         this.displaySphere = false;
         this.displayCylinder = false;
         this.displayTerrain = true;
+        this.displayBillboard = true;
         this.scaleFactor = 1;
         this.speedFactor = 1;
         //this.selectedTexture = -1;
@@ -144,6 +157,7 @@ class MyScene extends CGFscene {
             
             this.vehicle.reset();
             this.nSuppliesDelivered=0;
+            this.billboard.reset();
             for (var i=0 ; i<5; i++){
                 this.supplies[i].reset();
             }
@@ -191,6 +205,7 @@ class MyScene extends CGFscene {
         this.vehicle.update(t);
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
         this.otherFlagSideShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.billboardShader.setUniformsValues({ percentageDelivered: this.nSuppliesDelivered/5});
         this.s1.update();
         this.s2.update();
         this.s3.update();
@@ -259,7 +274,7 @@ class MyScene extends CGFscene {
 
         if(this.displayTerrain){
             //apply default terrain appearance
-            this.appearance.apply();
+            this.terrainMaterial.apply();
 
             //Terrain display
             // bind additional texture to texture unit 1
@@ -277,11 +292,21 @@ class MyScene extends CGFscene {
             this.setDefaultAppearance();
         }
 
+        if(this.displayBillboard){
+            this.pushMatrix();
+            this.translate(0, -10, -5);
+            this.billboard.display();
+            this.popMatrix();
+        }
+        
+
         this.s1.display();
         this.s2.display();
         this.s3.display();
         this.s4.display();
         this.s5.display();
+
+        
         
         // ---- END Primitive drawing section
     }
