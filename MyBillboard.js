@@ -80,8 +80,8 @@ class MyBillboard extends CGFobject {
         this.scene.translate(-1.5, 3.85, -1.995);
         this.scene.scale(1.5, 0.2, 1);
         this.loadBar.display();
+        this.scene.translate(0, 0, -0.05);
         this.scene.rotate(Math.PI, 0, 1, 0);
-        this.scene.translate(-1.5, 1, -1.99);
         this.loadBar.display();
         this.scene.popMatrix();
 
