@@ -11,7 +11,7 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 uniform float timeFactor;
-
+uniform float velocity;
 varying vec2 vTextureCoord;
 
 uniform float normScale;
@@ -25,7 +25,7 @@ void main() {
 	vTextureCoord = aTextureCoord;
 
 
-	offset *= sin(timeFactor + (aTextureCoord.x) * 10.0) / 3.0 * aTextureCoord.x;
+	offset *= sin((timeFactor + (aTextureCoord.x) * 10.0)*(velocity*7.0+0.2)) / 4.5 * aTextureCoord.x;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset , 1.0);
 }

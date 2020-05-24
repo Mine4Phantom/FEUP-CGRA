@@ -91,12 +91,14 @@ class MyScene extends CGFscene {
         
         this.flagShader = new CGFshader(this.gl, "shaders/flag.vert", "shaders/flag.frag");
         this.flagShader.setUniformsValues({ timeFactor: 0 });
+        this.flagShader.setUniformsValues({velocity: Math.abs(this.vehicle.speed)});
 
         this.billboardShader = new CGFshader(this.gl, "shaders/billboard.vert", "shaders/billboard.frag");
         this.billboardShader.setUniformsValues({ percentageDelivered: 0.0});
 
         this.otherFlagSideShader = new CGFshader(this.gl, "shaders/otherflagside.vert", "shaders/flag.frag");
         this.otherFlagSideShader.setUniformsValues({ timeFactor: 0 });
+        this.otherFlagSideShader.setUniformsValues({velocity: Math.abs(this.vehicle.speed)});
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -170,10 +172,8 @@ class MyScene extends CGFscene {
             }
             keysPressed = true;
         }
-        /*
-        if (keysPressed)
-            this.vehicle.update(t);
-            */
+       
+            
     }
     
 
@@ -195,9 +195,13 @@ class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.vehicle.update(t);
+        //flag updates
         this.flagShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.flagShader.setUniformsValues({velocity: Math.abs(this.vehicle.speed)});
         this.otherFlagSideShader.setUniformsValues({ timeFactor: t / 100 % 1000 });
+        this.otherFlagSideShader.setUniformsValues({velocity: Math.abs(this.vehicle.speed)});
         this.billboardShader.setUniformsValues({ percentageDelivered: this.nSuppliesDelivered/5});
+
         this.s1.update();
         this.s2.update();
         this.s3.update();
