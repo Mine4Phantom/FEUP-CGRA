@@ -58,7 +58,7 @@ class MyBillboard extends CGFobject {
         this.billboardTexGray.apply();
         //Left support beam
         this.scene.pushMatrix();
-        this.scene.translate(-0.95, 1, 0);
+        this.scene.translate(-2, 2.5, -2);
         this.scene.scale(0.1, 2, 1);
         this.support.display();
         this.scene.rotate(Math.PI, 0, 1, 0);
@@ -67,7 +67,7 @@ class MyBillboard extends CGFobject {
 
         //Right support beam
         this.scene.pushMatrix();
-        this.scene.translate(0.95, 1, 0);
+        this.scene.translate(-1, 2.5, -2);
         this.scene.scale(0.1, 2, 1);
         this.support.display();
         this.scene.rotate(Math.PI, 0, 1, 0);
@@ -77,11 +77,11 @@ class MyBillboard extends CGFobject {
         this.scene.setActiveShader(this.scene.billboardShader);
         //Percentage Bar
         this.scene.pushMatrix();
-        this.scene.translate(0, 2.35, 0.005);
+        this.scene.translate(-1.5, 3.85, -1.995);
         this.scene.scale(1.5, 0.2, 1);
         this.loadBar.display();
         this.scene.rotate(Math.PI, 0, 1, 0);
-        this.scene.translate(0, 0, 0.01);
+        this.scene.translate(-1.5, 1, -1.99);
         this.loadBar.display();
         this.scene.popMatrix();
 
@@ -91,7 +91,7 @@ class MyBillboard extends CGFobject {
         
         //Panel with text
         this.textTex.apply();
-        this.scene.translate(0, 2.5, 0);
+        this.scene.translate(-1.5, 4, -2);
         this.scene.scale(2, 1.3, 1);
         this.panel.display();
         this.scene.rotate(Math.PI, 0, 1, 0);
