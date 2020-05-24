@@ -75,7 +75,6 @@ class Mycanyonmap extends CGFobject {
         this.scene.scale (50,50,50);
         this.scene.translate(0, 0, -0.5);
         this.front.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad.display();
         this.scene.popMatrix();
 
@@ -114,8 +113,7 @@ class Mycanyonmap extends CGFobject {
         this.scene.scale (50,50,50);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.translate(0, 0, -0.5);
-        this.top.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.top.apply();      
         this.quad.display();
         this.scene.popMatrix();
         
@@ -125,7 +123,6 @@ class Mycanyonmap extends CGFobject {
         this.scene.rotate(-Math.PI/2,1,0,0);
         this.scene.translate(0, 0, -0.5);
         this.bottom.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad.display();
         this.scene.popMatrix();
 

@@ -95,7 +95,6 @@ class MyScene extends CGFscene {
         this.billboardShader = new CGFshader(this.gl, "shaders/billboard.vert", "shaders/billboard.frag");
         this.billboardShader.setUniformsValues({ percentageDelivered: 0.0});
 
-        //mudar nome, ugly
         this.otherFlagSideShader = new CGFshader(this.gl, "shaders/otherflagside.vert", "shaders/flag.frag");
         this.otherFlagSideShader.setUniformsValues({ timeFactor: 0 });
 
@@ -109,10 +108,6 @@ class MyScene extends CGFscene {
         this.displayBillboard = true;
         this.scaleFactor = 1;
         this.speedFactor = 1;
-        //this.selectedTexture = -1;
-        this.wrapS = 0;
-        this.wrapT = 0;
-        //this.lastUpdate = 0;
         var t = 0;
         this.nSuppliesDelivered = 0;
 
@@ -120,10 +115,6 @@ class MyScene extends CGFscene {
         this.textures = [this.texture1, this.texture2, this.texture3];
         this.texCoords = [0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0];
         this.wrappingMethods = ['REPEAT', 'CLAMP_TO_EDGE', 'MIRRORED_REPEAT'];
-
-        this.textureIds = { 'Board': 0, 'Floor': 1, 'Window': 2 };
-        this.wrappingS = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
-        this.wrappingT = { 'Repeat': 0, 'Clamp to edge': 1, 'Mirrored repeat': 2 };
     }
     checkKeys() {
         var text = "Keys pressed: ";
@@ -168,9 +159,10 @@ class MyScene extends CGFscene {
 
             this.vehicle.startAutoPilot();
             keysPressed = true;
+
         }
 
-        if (this.gui.isKeyPressed("KeyL")) {
+        if (this.gui.isKeyPressed("KeyL") && !this.vehicle.autopilot) {
             
             if (this.nSuppliesDelivered <= 4){
               this.supplies[this.nSuppliesDelivered].drop(this.vehicle.x, this.vehicle.z);

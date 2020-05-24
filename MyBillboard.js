@@ -56,7 +56,7 @@ class MyBillboard extends CGFobject {
         this.scene.scale(this.scale, this.scale, this.scale);
 
         this.billboardTexGray.apply();
-        //Left support beam
+        //Left billboard leg
         this.scene.pushMatrix();
         this.scene.translate(-2, 2.5, -2);
         this.scene.scale(0.1, 2, 1);
@@ -65,7 +65,7 @@ class MyBillboard extends CGFobject {
         this.support.display();
         this.scene.popMatrix();
 
-        //Right support beam
+        //Right billboard leg
         this.scene.pushMatrix();
         this.scene.translate(-1, 2.5, -2);
         this.scene.scale(0.1, 2, 1);
@@ -75,6 +75,7 @@ class MyBillboard extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.billboardShader);
+    
         //Percentage Bar
         this.scene.pushMatrix();
         this.scene.translate(-1.5, 3.85, -1.995);
@@ -88,8 +89,7 @@ class MyBillboard extends CGFobject {
         this.scene.setActiveShader(this.scene.defaultShader);
 
 
-        
-        //Panel with text
+        //Text panel
         this.textTex.apply();
         this.scene.translate(-1.5, 4, -2);
         this.scene.scale(2, 1.3, 1);
@@ -97,7 +97,6 @@ class MyBillboard extends CGFobject {
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.panel.display();
         this.popMatrix;
-
 
 
         this.scene.popMatrix();
@@ -113,17 +112,7 @@ class MyBillboard extends CGFobject {
     }
 
     update(){
-        /*
-        this.percentageDelivered = 0;
-        var a = 0;
-        for(var i = 0; i < this.scene.max_num_supplies; i++){
-            if(this.scene.supplies[i].state ==  SupplyStates.LANDED){
-                //this.percentageDelivered += 1.0 / this.scene.max_num_supplies;
-                a+= 1.0;
-            }
-        }
-        this.percentageDelivered = a / this.scene.max_num_supplies;
-        */
+        
     }
 
     reset(){

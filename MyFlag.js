@@ -62,7 +62,7 @@ class MyFlag extends CGFobject {
         this.flag.display();
         this.scene.popMatrix();
 
-        //cubos de ligação, mudar
+        //cubos de ligação
         this.scene.setActiveShader(this.scene.defaultShader);
 
         this.scene.pushMatrix();
